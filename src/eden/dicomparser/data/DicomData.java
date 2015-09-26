@@ -21,6 +21,9 @@ public class DicomData {
 	//检查的身体部位
 	private String bodyPartExamined ;
 	private String patientWeight ;
+	private String studyId;
+	private String studyDescription;
+	
 	public String getPatientId() {
 		return patientId;
 	}
@@ -99,6 +102,18 @@ public class DicomData {
 	public void setPatientWeight(String patientWeight) {
 		this.patientWeight = patientWeight;
 	}
+	public String getStudyId() {
+		return studyId;
+	}
+	public void setStudyId(String studyId) {
+		this.studyId = studyId;
+	}
+	public String getStudyDescription() {
+		return studyDescription;
+	}
+	public void setStudyDescription(String studyDescription) {
+		this.studyDescription = studyDescription;
+	}
 	@Override
 	public String toString() {
 		return "DicomData [patientId=" + patientId + ", patientName="
@@ -109,8 +124,7 @@ public class DicomData {
 				+ seriesNumber + ", instanceNumber=" + instanceNumber
 				+ ", modality=" + modality + ", studyDate=" + studyDate
 				+ ", bodyPartExamined=" + bodyPartExamined + ", patientWeight="
-				+ patientWeight + "]";
+				+ patientWeight + ", studyId=" + studyId
+				+ ", studyDescription=" + studyDescription + "]";
 	}
-	
-	
 }

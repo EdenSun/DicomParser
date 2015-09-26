@@ -1,6 +1,7 @@
 package eden.dicomparser;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.io.DicomInputStream;
+import org.dcm4che2.tool.dcm2jpg.Dcm2Jpg;
 
 import eden.dicomparser.data.DicomData;
 import eden.dicomparser.util.DateHelper;
@@ -79,6 +81,8 @@ public class DicomParser {
 		String studyDateStr = dcmObj.getString(Tag.StudyDate);	//20150703
 		String bodyPartExamined = dcmObj.getString(Tag.BodyPartExamined);
 		String patientWeight = dcmObj.getString(Tag.PatientWeight);
+		String studyId = dcmObj.getString(Tag.StudyID);
+		String studyDescription = dcmObj.getString(Tag.StudyDescription);
 		
 		data.setPatientId(patientId);
 		data.setPatientName(patientName);
@@ -89,6 +93,8 @@ public class DicomParser {
 		data.setModality(modality);
 		data.setBodyPartExamined(bodyPartExamined);
 		data.setPatientWeight(patientWeight);
+		data.setStudyId(studyId);
+		data.setStudyDescription(studyDescription);
 		if( acquisitionDateStr != null ){
 			try {
 				Date acquisitionDate = DateHelper.parse(acquisitionDateStr,"yyyyMMdd");
@@ -132,6 +138,11 @@ public class DicomParser {
 		
 		return data;
 	}
+	
+	public static void dcm2jpg(String dcmFilePath,String jpgFilePath) throws IOException{
+		Dcm2Jpg dcm2Jpg = new Dcm2Jpg();
+		dcm2Jpg.convert(new File(dcmFilePath), new File(jpgFilePath));
+	}
 
 	//******************************************************
 	public static DicomParser getInstance(){
@@ -144,11 +155,13 @@ public class DicomParser {
 	}
 	//*******************************************************
 	public static void main(String[] args) throws Exception {
-		File file = new File("D:\\tmp\\DicomFiles\\patient0\\IM0");
+		
+		//DicomParser.dcm2jpg("D:\\tmp\\DicomFiles\\patient0\\IM0", "D:\\tmp\\DicomFiles\\patient0\\IM0.jpg");
+		/*File file = new File("D:\\tmp\\DicomFiles\\patient0\\IM0");
 		System.out.println(DicomParser.getInstance().read(file));
 		
 		file = new File("D:\\tmp\\DicomFiles\\patient0\\IM1");
-		System.out.println(DicomParser.getInstance().read(file));
+		System.out.println(DicomParser.getInstance().read(file));*/
 	}
 	
 }
