@@ -1,7 +1,6 @@
 package eden.dicomparser;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -52,14 +51,14 @@ public class DicomParser {
 			return data;
 		}
 		catch (IOException e) {
-			throw new Exception("读取Dicom文件失败");
+			throw new Exception(e);
 		}
 		finally {
-			try {
+			/*try {
 				din.close();
 			}
 			catch (IOException ignore) {
-			}
+			}*/
 		}
 	}
 	
@@ -139,7 +138,7 @@ public class DicomParser {
 		return data;
 	}
 	
-	public static void dcm2jpg(String dcmFilePath,String jpgFilePath) throws IOException{
+	public void dcm2jpg(String dcmFilePath,String jpgFilePath) throws IOException{
 		Dcm2Jpg dcm2Jpg = new Dcm2Jpg();
 		dcm2Jpg.convert(new File(dcmFilePath), new File(jpgFilePath));
 	}
@@ -156,7 +155,10 @@ public class DicomParser {
 	//*******************************************************
 	public static void main(String[] args) throws Exception {
 		
-		//DicomParser.dcm2jpg("D:\\tmp\\DicomFiles\\patient0\\IM0", "D:\\tmp\\DicomFiles\\patient0\\IM0.jpg");
+		//DicomParser.getInstance().dcm2jpg("D:\\dcm", "D:\\dcm.jpg");
+		
+		File file = new File("D:\\dcm");
+		System.out.println(DicomParser.getInstance().read(file));
 		/*File file = new File("D:\\tmp\\DicomFiles\\patient0\\IM0");
 		System.out.println(DicomParser.getInstance().read(file));
 		
